@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supplexio Database Schema Diagram</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: auto;
+        }
+        h1 {
+            color: #0056b3;
+            text-align: center;
+        }
+        #diagram-container {
+            width: 100%;
+            overflow: auto;
+        }
+        svg {
+            min-width: 2200px;
+            min-height: 3000px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Supplexio Database Schema Diagram</h1>
+        <div class="legend" style="margin-bottom: 20px; padding: 15px; background-color: #f8f9fa; border-radius: 5px; border-left: 4px solid #0056b3;">
+            <h3 style="margin-top: 0; color: #0056b3;">Legend</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                <div><span style="display: inline-block; width: 20px; height: 20px; background-color: #ffcccc; border: 1px solid #333; margin-right: 5px;"></span> Primary Key</div>
+                <div><span style="display: inline-block; width: 20px; height: 20px; background-color: #ccffcc; border: 1px solid #333; margin-right: 5px;"></span> Foreign Key</div>
+                <div><span style="display: inline-block; width: 20px; height: 20px; background-color: #ffffff; border: 1px solid #333; margin-right: 5px;"></span> Regular Attribute</div>
+                <div><span style="display: inline-block; width: 20px; height: 20px; background-color: #ffffcc; border: 1px solid #333; margin-right: 5px;"></span> Relationship</div>
+            </div>
+        </div>
+        <div id="diagram-container">
+            <svg id="schema-diagram" width="2000" height="2500"></svg>
+        </div>
+    </div>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script>
+        // Define the database schema
+        const schema = {
+            tables: [
+                {
+                    name: "USERS",
+                    attributes: [
+                        { name: "USER ID", isPK: true },
+                        { name: "USERNAME" },
+                        { name: "EMAIL" },
+                        { name: "PASSWORD" },
+                        { name: "ROLE" },
+                        { name: "STATUS" }
+                    ],
+                    x: 250, y: 150
+                },
+                {
+                    name: "PRODUCTS",
+                    attributes: [
+                        { name: "PRODUCT ID", isPK: true },
+                        { name: "NAME" },
+                        { name: "CATEGORY" },
+                        { name: "PRICE" },
+                        { name: "BASE PRICE" },
+                        { name: "DESCRIPTION" },
+                        { name: "STATUS" }
+                    ],
+                    x: 1500, y: 150
+                },
+                {
+                    name: "SUPPLIERS",
+                    attributes: [
+                        { name: "SUPPLIER ID", isPK: true },
+                        { name: "NAME" },
+                        { name: "EMAIL" },
+                        { name: "PHONE" },
+                        { name: "ADDRESS" },
+                        { name: "REGION" },
+                        { name: "STATUS" },
+                        { name: "CATEGORY" }
+                    ],
+                    x: 1500, y: 600
+                },
+                {
+                    name: "AUCTIONS",
+                    attributes: [
+                        { name: "AUCTION ID", isPK: true },
+                        { name: "PRODUCT ID", isFK: true },
+                        { name: "START TIME" },
+                        { name: "END TIME" },
+                        { name: "START PRICE" },
+                        { name: "DESCRIPTION" },
+                        { name: "STATUS" }
+                    ],
+                    x: 850, y: 150
+                },
+                {
+                    name: "BIDS",
+                    attributes: [
+                        { name: "BID ID", isPK: true },
+                        { name: "AUCTION ID", isFK: true },
+                        { name: "SUPPLIER ID", isFK: true },
+                        { name: "AMOUNT" },
+                        { name: "BID TIME" },
+                        { name: "MIN BID" }
+                    ],
+                    x: 850, y: 600
+                },
+                {
+                    name: "AUCTION INVITATIONS",
+                    attributes: [
+                        { name: "INVITATION ID", isPK: true },
+                        { name: "AUCTION ID", isFK: true },
+                        { name: "SUPPLIER ID", isFK: true },
+                        { name: "STATUS" }
+                    ],
+                    x: 1175, y: 375
+                },
+                {
+                    name: "PAYMENTS",
+                    attributes: [
+                        { name: "PAYMENT ID", isPK: true },
+                        { name: "SUPPLIER ID", isFK: true },
+                        { name: "AUCTION ID", isFK: true },
+                        { name: "AMOUNT" },
+                        { name: "TRANSACTION ID" },
+                        { name: "STATUS" },
+                        { name: "TRANSACTION DATE" }
+                    ],
+                    x: 1175, y: 1050
+                },
+                {
+                    name: "CHART DATA",
+                    attributes: [
+                        { name: "DATA ID", isPK: true },
+                        { name: "SUPPLIER ID", isFK: true },
+                        { name: "USER ID", isFK: true },
+                        { name: "AMOUNT" },
+                        { name: "DATE" }
+                    ],
+                    x: 850, y: 1050
+                },
+                {
+                    name: "TO DO ITEMS",
+                    attributes: [
+                        { name: "TO DO ID", isPK: true },
+                        { name: "USER ID", isFK: true },
+                        { name: "DESCRIPTION" },
+                        { name: "STATUS" },
+                        { name: "COMPLETED" },
+                        { name: "DUE DATE" }
+                    ],
+                    x: 250, y: 600
+                },
+                {
+                    name: "ORDERS",
+                    attributes: [
+                        { name: "ORDER ID", isPK: true },
+                        { name: "USER ID", isFK: true },
+                        { name: "SUPPLIER ID", isFK: true },
+                        { name: "ORDER DATE" },
+                        { name: "STATUS" },
+                        { name: "TOTAL AMOUNT" },
+                        { name: "CATEGORY" }
+                    ],
+                    x: 250, y: 1050
+                },
+                {
+                    name: "TRANSACTIONS",
+                    attributes: [
+                        { name: "TRANSACTION ID", isPK: true },
+                        { name: "USER ID", isFK: true },
+                        { name: "SUPPLIER ID", isFK: true },
+                        { name: "AMOUNT" },
+                        { name: "TRANSACTION DATE" },
+                        { name: "STATUS" },
+                        { name: "REGION" }
+                    ],
+                    x: 525, y: 1350
+                }
+            ],
+            relationships: [
+                { from: "USERS", to: "PRODUCTS", type: "manages" },
+                { from: "USERS", to: "SUPPLIERS", type: "manages" },
+                { from: "USERS", to: "ORDERS", type: "places" },
+                { from: "USERS", to: "TO DO ITEMS", type: "owns" },
+                { from: "USERS", to: "TRANSACTIONS", type: "makes" },
+                { from: "PRODUCTS", to: "AUCTIONS", type: "included in" },
+                { from: "SUPPLIERS", to: "BIDS", type: "places" },
+                { from: "SUPPLIERS", to: "AUCTION INVITATIONS", type: "receives" },
+                { from: "SUPPLIERS", to: "PAYMENTS", type: "receives" },
+                { from: "SUPPLIERS", to: "CHART DATA", type: "has" },
+                { from: "SUPPLIERS", to: "ORDERS", type: "fulfills" },
+                { from: "SUPPLIERS", to: "TRANSACTIONS", type: "involved in" },
+                { from: "AUCTIONS", to: "BIDS", type: "receives" },
+                { from: "AUCTIONS", to: "AUCTION INVITATIONS", type: "has" },
+                { from: "AUCTIONS", to: "PAYMENTS", type: "generates" }
+            ]
+        };
+
+        // Initialize D3 diagram
+        const svg = d3.select("#schema-diagram");
+        const tableWidth = 180;
+        const tableHeaderHeight = 30;
+        const attributeHeight = 25;
+        const relationshipMarkerSize = 10;
+
+        // Draw tables
+        schema.tables.forEach(table => {
+            const tableGroup = svg.append("g")
+                .attr("transform", `translate(${table.x}, ${table.y})`);
+
+            // Table header with improved styling
+            tableGroup.append("rect")
+                .attr("width", tableWidth)
+                .attr("height", tableHeaderHeight)
+                .attr("fill", "#4a86e8") // Blue header matching Supplexio colors
+                .attr("stroke", "#333")
+                .attr("stroke-width", 2)
+                .attr("rx", 8)
+                .attr("ry", 8);
+
+            tableGroup.append("text")
+                .attr("x", tableWidth / 2)
+                .attr("y", tableHeaderHeight / 2 + 5)
+                .attr("text-anchor", "middle")
+                .attr("font-weight", "bold")
+                .attr("fill", "white") // White text for better contrast
+                .attr("font-size", "14px") // Larger font
+                .text(table.name);
+
+            // Table attributes
+            const attributeGroup = tableGroup.append("g")
+                .attr("transform", `translate(0, ${tableHeaderHeight})`);
+
+            // Set alternating x-position for attributes to create a staggered pattern
+            // This will ensure attributes don't get crossed by relationship lines
+            table.attributes.forEach((attr, i) => {
+                // Attribute oval with alternating left/right positions
+                // This creates a zigzag pattern for attributes to avoid line overlaps
+                const offsetX = (i % 2 === 0) ? -30 : 30; // Alternate left and right
+                const attrX = tableWidth / 2 + offsetX;
+                const attrY = i * (attributeHeight + 70) + 80; // Much larger vertical spacing
+                
+                attributeGroup.append("ellipse")
+                    .attr("cx", attrX)
+                    .attr("cy", attrY)
+                    .attr("rx", 90) // Wide ovals
+                    .attr("ry", attributeHeight / 2 + 10) // Tall ovals
+                    .attr("fill", attr.isPK ? "#ffcccc" : (attr.isFK ? "#ccffcc" : "#ffffff"))
+                    .attr("stroke", "#333")
+                    .attr("stroke-width", 1.5);
+
+                attributeGroup.append("text")
+                    .attr("x", attrX)
+                    .attr("y", attrY + 5)
+                    .attr("text-anchor", "middle")
+                    .attr("font-size", "13px") // Larger font
+                    .attr("font-weight", attr.isPK || attr.isFK ? "bold" : "normal") // Bold text for keys
+                    .text(attr.name);
+            });
+        });
+
+        // Draw relationships
+        schema.relationships.forEach(rel => {
+            const fromTable = schema.tables.find(t => t.name === rel.from);
+            const toTable = schema.tables.find(t => t.name === rel.to);
+
+            if (!fromTable || !toTable) return;
+
+            // Calculate connection points
+            const fromX = fromTable.x + tableWidth / 2;
+            const fromY = fromTable.y + tableHeaderHeight + 50;
+            const toX = toTable.x + tableWidth / 2;
+            const toY = toTable.y + tableHeaderHeight + 50;
+
+            // Calculate connection points from the sides of tables instead of centers to reduce crossing
+            // Determine which side of the table to connect from based on relative positions
+            let startX = fromX;
+            let startY = fromY;
+            let endX = toX;
+            let endY = toY;
+            
+            // Horizontal offset to connect from sides instead of center
+            const horizontalOffset = tableWidth / 2 + 20;
+            // Vertical offset for attribute connections
+            const verticalOffset = 100;
+            
+            // Connect from appropriate sides based on relative positions
+            if (Math.abs(fromX - toX) > Math.abs(fromY - toY)) {
+                // Tables are more horizontally separated than vertically
+                if (fromX < toX) {
+                    // From is to the left of To
+                    startX = fromX + horizontalOffset;
+                    endX = toX - horizontalOffset;
+                } else {
+                    // From is to the right of To
+                    startX = fromX - horizontalOffset;
+                    endX = toX + horizontalOffset;
+                }
+            } else {
+                // Tables are more vertically separated than horizontally
+                if (fromY < toY) {
+                    // From is above To
+                    startY = fromY + verticalOffset;
+                    endY = toY - verticalOffset;
+                } else {
+                    // From is below To
+                    startY = fromY - verticalOffset;
+                    endY = toY + verticalOffset;
+                }
+            }
+            
+            // Create curved path with control points to make smooth curves
+            const dx = endX - startX;
+            const dy = endY - startY;
+            const controlPointX1 = startX + dx * 0.4;
+            const controlPointY1 = startY + dy * 0.1;
+            const controlPointX2 = startX + dx * 0.6;
+            const controlPointY2 = startY + dy * 0.9;
+            
+            const pathData = `M${startX},${startY} C${controlPointX1},${controlPointY1} ${controlPointX2},${controlPointY2} ${endX},${endY}`;
+            
+            svg.append("path")
+                .attr("d", pathData)
+                .attr("fill", "none")
+                .attr("stroke", "#333")
+                .attr("stroke-width", 1.5)
+                .attr("marker-end", "url(#arrow)");
+
+            // Calculate midpoint along the curve for relationship diamond placement
+            // This places the diamond along the actual path rather than just between endpoints
+            const pathMidX = startX + dx * 0.5;
+            const pathMidY = startY + dy * 0.5;
+            
+            // Offset the diamond slightly to avoid overlapping with other diamonds
+            // Use a unique offset based on the relationship type to create variety
+            const uniqueOffset = (rel.type.length * 3) % 40 - 20;
+            const diamondX = pathMidX + uniqueOffset;
+            const diamondY = pathMidY + uniqueOffset;
+            
+            // Add a white background to the diamond for better readability
+            svg.append("polygon")
+                .attr("points", `${diamondX},${diamondY-20} ${diamondX+30},${diamondY} ${diamondX},${diamondY+20} ${diamondX-30},${diamondY}`)
+                .attr("fill", "#ffffcc")
+                .attr("stroke", "#333")
+                .attr("stroke-width", 2);
+
+            // Add white background behind text for better readability
+            svg.append("rect")
+                .attr("x", diamondX - 40)
+                .attr("y", diamondY - 8)
+                .attr("width", 80)
+                .attr("height", 16)
+                .attr("fill", "#ffffcc")
+                .attr("stroke", "none");
+
+            svg.append("text")
+                .attr("x", diamondX)
+                .attr("y", diamondY + 5)
+                .attr("text-anchor", "middle")
+                .attr("font-size", "12px")
+                .attr("font-weight", "bold")
+                .text(rel.type);
+        });
+
+        // Add arrow marker definition
+        svg.append("defs").append("marker")
+            .attr("id", "arrow")
+            .attr("viewBox", "0 -5 10 10")
+            .attr("refX", 8)
+            .attr("refY", 0)
+            .attr("markerWidth", 6)
+            .attr("markerHeight", 6)
+            .attr("orient", "auto")
+            .append("path")
+            .attr("d", "M0,-5L10,0L0,5")
+            .attr("fill", "#333");
+    </script>
+</body>
+</html>

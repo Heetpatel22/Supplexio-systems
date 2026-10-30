@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <display-name>Supplexio</display-name>
+    <welcome-file-list>
+        <welcome-file>home</welcome-file>
+    </welcome-file-list>
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+    
+    <listener>
+        <listener-class>com.axaltacoating.listener.CommoditiesScraperListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>com.axaltacoating.listener.DatabaseInitializationListener</listener-class>
+    </listener>
+    <!-- Servlet Definitions -->
+    <servlet>
+        <servlet-name>HomeServlet</servlet-name>
+        <servlet-class>com.axaltacoating.servlet.HomeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductServlet</servlet-name>
+        <servlet-class>com.axaltacoating.servlet.ProductServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SupplierServlet</servlet-name>
+        <servlet-class>com.axaltacoating.servlet.SupplierServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AuctionServlet</servlet-name>
+        <servlet-class>com.axaltacoating.servlet.AuctionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BiddingServlet</servlet-name>
+        <servlet-class>com.axaltacoating.servlet.BiddingServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PaymentServlet</servlet-name>
+        <servlet-class>com.axaltacoating.servlet.PaymentServlet</servlet-class>
+    </servlet>
+    <!-- StatisticsServlet removed as requested -->
+    <!-- TestConnectionServlet removed as it doesn't exist -->
+    <servlet>
+        <servlet-name>TodoServlet</servlet-name>
+        <servlet-class>com.axaltacoating.servlet.TodoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AuthServlet</servlet-name>
+        <servlet-class>com.axaltacoating.servlet.AuthServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SettingsServlet</servlet-name>
+        <servlet-class>com.axaltacoating.servlet.SettingsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BidChartServlet</servlet-name>
+        <servlet-class>com.axaltacoating.servlet.BidChartServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InventoryServlet</servlet-name>
+        <servlet-class>com.axaltacoating.servlet.InventoryServlet</servlet-class>
+    </servlet>
+    
+    <!-- Servlet Mappings -->
+    <servlet-mapping>
+        <servlet-name>HomeServlet</servlet-name>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductServlet</servlet-name>
+        <url-pattern>/product</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SupplierServlet</servlet-name>
+        <url-pattern>/supplier</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AuctionServlet</servlet-name>
+        <url-pattern>/auction</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BiddingServlet</servlet-name>
+        <url-pattern>/bidding</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PaymentServlet</servlet-name>
+        <url-pattern>/payment</url-pattern>
+    </servlet-mapping>
+    <!-- StatisticsServlet mapping removed as requested -->
+    <!-- TestConnectionServlet mapping removed as it doesn't exist -->
+    <servlet-mapping>
+        <servlet-name>TodoServlet</servlet-name>
+        <url-pattern>/todo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AuthServlet</servlet-name>
+        <url-pattern>/auth</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SettingsServlet</servlet-name>
+        <url-pattern>/settings</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BidChartServlet</servlet-name>
+        <url-pattern>/api/bids/chart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InventoryServlet</servlet-name>
+        <url-pattern>/inventory</url-pattern>
+    </servlet-mapping>
+    
+    <resource-ref>
+        <description>Database Connection</description>
+        <res-ref-name>jdbc/supplexioDB</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
+    
+    <!-- Error page configuration -->
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/error.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+</web-app>

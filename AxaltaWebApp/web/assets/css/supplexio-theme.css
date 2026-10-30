@@ -1,0 +1,245 @@
+/* Supplexio Theme CSS */
+body {
+    background-color: var(--neutral-color);
+    color: var(--text-color);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.left-menu {
+    background-color: white;
+    border-right: 1px solid #dee2e6;
+    padding: 0;
+    height: 100vh;
+    position: fixed;
+    width: 250px;
+    z-index: 1000;
+}
+
+.left-menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.left-menu ul li {
+    padding: 8px 15px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.left-menu ul li a {
+    color: var(--primary-color);
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+}
+
+.left-menu ul li a:hover {
+    color: var(--secondary-color);
+}
+
+.left-menu ul li a i {
+    width: 20px;
+    margin-right: 5px;
+    color: #0047AB;
+}
+
+.left-menu ul li.active {
+    background-color: var(--neutral-color);
+}
+
+.left-menu ul li.active a {
+    color: #0047AB;
+    font-weight: bold;
+}
+
+.logo-container {
+    padding: 10px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.logo-container img {
+    max-width: 100%;
+    height: auto;
+}
+
+.content-wrapper {
+    margin-left: 250px;
+    padding: 20px;
+}
+
+.tagline-container {
+    text-align: center;
+    padding: 15px 0;
+    border-top: 1px solid #dee2e6;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+}
+
+.tagline {
+    font-style: italic;
+    color: #6c757d;
+    margin: 0;
+    font-size: 12px;
+}
+
+/* Page Header Styles */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.page-title {
+    color: var(--text-color);
+    font-size: 24px;
+    margin: 0;
+    font-weight: normal;
+}
+
+.btn-supplexio {
+    background-color: var(--primary-color);
+    color: var(--neutral-color);
+    border: none;
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-supplexio:hover {
+    background-color: var(--secondary-color);
+    text-decoration: none;
+    color: white;
+}
+
+/* Table Styles */
+.supplexio-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.supplexio-table th {
+    background-color: var(--primary-color);
+    color: var(--neutral-color);
+    text-align: left;
+    padding: 8px;
+    font-weight: normal;
+}
+
+.supplexio-table td {
+    padding: 8px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.supplexio-table tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* Badge Styles */
+.badge-admin {
+    background-color: var(--accent-color);
+    color: var(--neutral-color);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+    display: inline-block;
+}
+
+.badge-active {
+    background-color: var(--success-color);
+    color: var(--neutral-color);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+    display: inline-block;
+}
+
+/* Link Styles */
+.action-link {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.action-link:hover {
+    color: var(--secondary-color);
+}
+
+/* Footer Styles */
+.footer-text {
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #dee2e6;
+    color: #6c757d;
+    font-size: 12px;
+}
+
+.footer-text p {
+    margin: 5px 0;
+}
+
+/* Form Styles */
+.form-container {
+    background-color: white;
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+.form-actions {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.form-actions .btn {
+    margin-left: 10px;
+}
+
+/* Alert Styles */
+.alert {
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}

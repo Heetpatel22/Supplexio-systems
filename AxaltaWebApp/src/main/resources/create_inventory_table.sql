@@ -1,0 +1,11 @@
+CREATE TABLE IF NOT EXISTS inventory (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    item_name VARCHAR(255) NOT NULL,
+    quantity INT NOT NULL,
+    min_threshold INT NOT NULL,
+    max_threshold INT NOT NULL,
+    kanban_status VARCHAR(50),
+    auction_started BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);

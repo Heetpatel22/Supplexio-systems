@@ -1,0 +1,37 @@
+# NetBeans & Java Build Artifacts
+**/build/
+**/dist/
+**/nbbuild/
+**/nbproject/private/
+*.class
+*.war
+*.ear
+
+# Logs
+*.log
+logs/
+**/logs/
+
+# Python Virtual Environments & Bytecode
+.venv/
+**/.venv/
+**/__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE & Editor files
+.vscode/
+**/.vscode/
+.idea/
+**/.idea/
+.qodo/
+**/.qodo/
+
+# Environment and sensitive files
+.env
+*.env.local
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalNamingResources>
+    <Resource name="jdbc/supplexioDB" 
+              auth="Container"
+              type="javax.sql.DataSource"
+              driverClassName="com.mysql.cj.jdbc.Driver"
+              url="jdbc:mysql://localhost:3306/supplexio?createDatabaseIfNotExist=true&amp;allowPublicKeyRetrieval=true&amp;useSSL=false&amp;characterEncoding=UTF-8"
+              username="root"
+              password="root"
+              maxTotal="20"
+              maxIdle="10"
+              maxWaitMillis="10000"
+              validationQuery="SELECT 1"
+              testOnBorrow="true"
+              removeAbandonedOnBorrow="true"
+              removeAbandonedTimeout="60"/>
+</GlobalNamingResources>

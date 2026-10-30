@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/SupplexioWebApp">
+    <ResourceLink name="jdbc/supplexioDB"
+                  global="jdbc/supplexioDB"
+                  type="javax.sql.DataSource"/>
+</Context>
